@@ -1,0 +1,30 @@
+{
+  "name": "class-simple-rest",
+  "version": "0.0.1",
+  "description": "A small rest service for a class.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create-tables": "node ./scripts/createTables.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caal-15/class-simple-rest.git"
+  },
+  "keywords": [
+    "rest",
+    "express"
+  ],
+  "author": "Carlos González",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caal-15/class-simple-rest/issues"
+  },
+  "homepage": "https://github.com/caal-15/class-simple-rest#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "knex": "^0.16.5",
+    "sqlite3": "^4.0.6"
+  }
+}
