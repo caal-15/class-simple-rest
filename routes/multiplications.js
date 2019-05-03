@@ -4,7 +4,7 @@ const multiplicationsRepository = require('../repositories/multiplications');
 
 const router = express.Router();
 
-const generateFactor = () => Math.random().toFixed(4) * 10000;
+const generateFactor = () => Math.round(Math.random().toFixed(4) * 10000);
 
 router.get('/random', (_, res) => {
   res.json({
@@ -14,16 +14,20 @@ router.get('/random', (_, res) => {
 });
 
 router.post('/', (req, res) => {
-  const { user, factorA, factorB, resultAttempt } = req.body;
-  const multiplication = {
+  const { user, multiplication, resultAttempt } = req.body;
+  const multiplicationData = {
     userAlias: user.alias,
-    factorA,
-    factorB,
+    factorA: multiplication.factorA,
+    factorB: multiplication.factorB,
     resultAttempt
   };
   return multiplicationsRepository
-    .createMultiiplication(multiplication)
-    .then(() => res.json({ correct: (factorA * factorB === resultAttempt) }));
+    .createMultiiplication(multiplicationData)
+    .then(() => res.status(201).json({
+      correct: (
+        multiplication.factorA * multiplication.factorB === resultAttempt
+      )
+    }));
 });
 
 module.exports = router;

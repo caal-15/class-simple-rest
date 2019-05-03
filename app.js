@@ -8,6 +8,7 @@ process.on('exit', () => {
 
 const app = express();
 
+app.use(express.static('static'));
 app.use(express.json());
 
 app.use('/multiplications', multiplicationRouter);
