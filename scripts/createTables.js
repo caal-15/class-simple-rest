@@ -1,9 +1,10 @@
-const db = require("../database");
+const db = require('../database');
 const multiplications = require('../repositories/multiplications')(db);
 
-multiplications.createMultiplicationsTable()
+multiplications
+  .createMultiplicationsTable()
   .then(() => {
-    console.log('All Tables Created!')
+    console.log('All Tables Created!');
     db.destroy();
   })
   .catch(() => {

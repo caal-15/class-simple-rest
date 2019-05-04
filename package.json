@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "create-tables": "node ./scripts/createTables.js"
+    "create-tables": "node ./scripts/createTables.js",
+    "pretty": "prettier --single-quote --semi --write **/**.js"
   },
   "repository": {
     "type": "git",
@@ -24,8 +25,16 @@
   "homepage": "https://github.com/caal-15/class-simple-rest#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "husky": "^2.2.0",
     "knex": "^0.16.5",
     "nodemon": "^1.19.0",
+    "prettier": "^1.17.0",
     "sqlite3": "^4.0.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pretty"
+    }
   }
+
 }

@@ -9,7 +9,7 @@ const multiplicationsRouter = multiplicationsRepository => {
     res.json({
       factorA: generateFactor(),
       factorB: generateFactor()
-    })
+    });
   });
 
   router.post('/', (req, res) => {
@@ -22,14 +22,27 @@ const multiplicationsRouter = multiplicationsRepository => {
     };
     return multiplicationsRepository
       .createMultiiplication(multiplicationData)
-      .then(() => res.status(201).json({
-        correct: (
-          multiplication.factorA * multiplication.factorB === resultAttempt
-        )
-      }));
+      .then(() =>
+        res.status(201).json({
+          correct:
+            multiplication.factorA * multiplication.factorB === resultAttempt
+        })
+      );
   });
 
+  router.get('/', (req, res) =>
+    multiplicationsRepository
+      .getMultiplications({ ...req.query })
+      .then(rows => {
+        const rowsWithResults = rows.map(row => ({
+          ...row,
+          correct: row.factorA * row.factorB === row.resultAttempt
+        }));
+        res.json(rowsWithResults);
+      })
+  );
+
   return router;
-}
+};
 
 module.exports = multiplicationsRouter;

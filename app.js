@@ -2,13 +2,13 @@ const express = require('express');
 const db = require('./database');
 
 const multiplicationsRepository = require('./repositories/multiplications')(db);
-const multiplicationRouter = require(
-  './routes/multiplications'
-)(multiplicationsRepository);
+const multiplicationRouter = require('./routes/multiplications')(
+  multiplicationsRepository
+);
 
 process.on('exit', () => {
   db.destroy();
-})
+});
 
 const app = express();
 
