@@ -1,5 +1,5 @@
 const db = require("../database");
-const multiplications = require('../repositories/multiplications');
+const multiplications = require('../repositories/multiplications')(db);
 
 multiplications.createMultiplicationsTable()
   .then(() => {
