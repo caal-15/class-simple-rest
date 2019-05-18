@@ -9,22 +9,20 @@ require('./queue').then(({ conn, sendToQueue }) => {
     db.destroy();
     conn.close();
   });
-  
+
   const multiplicationRouter = require('./routes/multiplications')(
     multiplicationsRepository,
     sendToQueue
   );
 
   const app = express();
-  
+
   app.use(cors());
   app.use(express.json());
-  
+
   app.use('/multiplications', multiplicationRouter);
-  
+
   app.listen('8080', () => {
     console.log('App Listening on port 8080');
   });
-})
-
-
+});

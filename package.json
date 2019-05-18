@@ -7,7 +7,7 @@
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "create-tables": "node ./scripts/createTables.js",
-    "pretty": "prettier --single-quote --semi --write **/**.js"
+    "pretty": "prettier --single-quote --semi --write **/*.js *.js"
   },
   "repository": {
     "type": "git",
