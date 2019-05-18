@@ -13,20 +13,22 @@ const multiplicationsRouter = (multiplicationsRepository, sendToQueue) => {
   });
 
   router.post('/', (req, res) => {
-    const { user, multiplication, resultAttempt } = req.body;
+    const { userAlias, factorA, factorB, resultAttempt } = req.body;
     const multiplicationData = {
-      userAlias: user.alias,
-      factorA: multiplication.factorA,
-      factorB: multiplication.factorB,
+      userAlias,
+      factorA,
+      factorB,
       resultAttempt
     };
     return multiplicationsRepository
       .createMultiiplication(multiplicationData)
       .then(() => {
-        const correct =
-          multiplication.factorA * multiplication.factorB === resultAttempt;
-        sendToQueue({ ...multiplicationData, correct });
-        return res.status(201).json({ correct });
+        const resData = {
+          ...multiplicationData,
+          correct: factorA * factorB === resultAttempt
+        };
+        sendToQueue(resData);
+        return res.status(201).json(resData);
       });
   });
 

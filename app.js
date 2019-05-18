@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('./database');
+const cors = require('cors');
 
 const multiplicationsRepository = require('./repositories/multiplications')(db);
 
@@ -16,6 +17,7 @@ require('./queue').then(({ conn, sendToQueue }) => {
 
   const app = express();
   
+  app.use(cors());
   app.use(express.json());
   
   app.use('/multiplications', multiplicationRouter);
