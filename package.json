@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/caal-15/class-simple-rest#readme",
   "dependencies": {
+    "amqplib": "^0.5.3",
     "express": "^4.16.4",
     "husky": "^2.2.0",
     "knex": "^0.16.5",
@@ -36,5 +37,4 @@
       "pre-commit": "npm run pretty"
     }
   }
-
 }

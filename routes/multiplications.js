@@ -2,7 +2,7 @@ const express = require('express');
 
 const generateFactor = () => Math.round(Math.random().toFixed(3) * 1000);
 
-const multiplicationsRouter = multiplicationsRepository => {
+const multiplicationsRouter = (multiplicationsRepository, sendToQueue) => {
   const router = express.Router();
 
   router.get('/random', (_, res) => {
@@ -22,12 +22,12 @@ const multiplicationsRouter = multiplicationsRepository => {
     };
     return multiplicationsRepository
       .createMultiiplication(multiplicationData)
-      .then(() =>
-        res.status(201).json({
-          correct:
-            multiplication.factorA * multiplication.factorB === resultAttempt
-        })
-      );
+      .then(() => {
+        const correct =
+          multiplication.factorA * multiplication.factorB === resultAttempt;
+        sendToQueue({ ...multiplicationData, correct });
+        return res.status(201).json({ correct });
+      });
   });
 
   router.get('/', (req, res) =>
