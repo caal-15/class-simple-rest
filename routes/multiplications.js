@@ -22,10 +22,11 @@ const multiplicationsRouter = (multiplicationsRepository, sendToQueue) => {
     };
     return multiplicationsRepository
       .createMultiiplication(multiplicationData)
-      .then(() => {
+      .then(id => {
         const resData = {
           ...multiplicationData,
-          correct: factorA * factorB === resultAttempt
+          correct: factorA * factorB === resultAttempt,
+          id
         };
         sendToQueue(resData);
         return res.status(201).json(resData);

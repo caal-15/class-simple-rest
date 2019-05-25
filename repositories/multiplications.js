@@ -16,7 +16,10 @@ const multiplicationsRepository = db => ({
       }
     }),
   createMultiiplication: multiplication =>
-    db('multiplications').insert(multiplication),
+    db('multiplications')
+      .insert(multiplication)
+      .then(ids => ids[0])
+      .catch(err => Promise.reject(err)),
   getMultiplications: ({ userAlias, count, sort, order }) => {
     let query = db.select('*').from('multiplications');
     if (userAlias) query = query.where({ userAlias });
